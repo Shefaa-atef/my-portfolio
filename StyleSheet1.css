@@ -1,0 +1,205 @@
+﻿@import url(https://db.onlinewebfonts.com/c/00ac13d2b19962953a8e331f05f78e67?family=PNU);
+
+
+/*background image and font*/
+    body {
+       background: #FFFFFF;
+       background: -moz-linear-gradient(left, #FFFFFF 0%, #FFFFFF 48%, #F7B4F9 100%);
+       background: -webkit-linear-gradient(left, #FFFFFF 0%, #FFFFFF 48%, #F7B4F9 100%);
+       background: linear-gradient(to right, #FFFFFF 0%, #FFFFFF 48%, #F7B4F9 100%);
+       font-family: "PNU";
+       font-size: 25px;
+       text-indent:20px;    
+       margin:0px 0px;
+    }
+    body h1:hover, li:hover {
+        color: #4D0D4F;
+    }
+
+/*hover*/
+    p:hover,li li:hover {
+        color: #6C4C90;
+    }
+    img:hover, table:hover, #part1:hover, #part2:hover, #part3:hover, #part4:hover, #part5:hover {
+    transition: all .3s ease-in-out;
+    transform: scale(1.022);
+    border-radius:15px;
+    }
+
+
+
+    ::selection {
+/* Change highlight background color to black */
+       background: #6C4C90;
+/* Change highlight text color to red */
+       color: #F7B4F9;
+    }
+
+/* button hire me*/
+    .mybutton {
+       box-shadow: 0px 0px 9px 0px #F7B4F9;
+       background-color: #6C4C90;
+       border-radius: 15px;
+       text-align: center;
+       width: 100px;
+       padding: 5px 5px;
+       text-decoration: none;
+       font-family: "PNU";
+       font-size: large;
+       color: #FFFFFF;
+       font-size: 25px;
+       margin: 50px 15px;
+    }
+    .mybutton:hover {
+       background: #F7B4F9;
+    }
+
+
+/*scroll*/
+   ::-webkit-scrollbar {
+       display: none;
+
+   }
+
+
+/* links*/
+   a{
+       text-decoration: none;
+       font-size: large;
+       color: #FFFFFF;
+   }
+
+/*nav bar*/
+nav {
+    margin:30px ;
+}
+    nav table {
+        float: right;
+        box-shadow: 0px 0px 9px 0px #F7B4F9;
+        background-color: #6C4C90;
+        border-radius: 15px;
+        border-spacing: 0px;
+    }
+    nav td a {
+        margin: 30px;
+        padding: 12px 5px 8px;
+    }
+    nav td :hover {
+        background: #F7B4F9;
+        transition: all .3s ease-in-out;
+        transform: scale(1.022);
+    }
+
+
+
+
+/*sectios*/
+/*home*/
+    #home {
+       height: 70vh;
+       margin: 100px 100px;
+       overflow: auto;
+    }
+    #home img {
+        float: right;
+        margin-left: 100px;
+    }
+
+/*contact*/
+#contact {
+    color:white;
+    font-size:80px;
+    height: 50vh;
+    font-size: 25px;
+    text-align: center;
+    padding: 200px 200px;
+    background-color: #F7B4F9;
+    overflow: auto;
+    position:relative;
+    top:30px;
+}
+#contact h1{
+    font-size: 60px;
+
+}
+a #icons:hover {
+    border-radius:70px;
+    box-shadow: 0px -5px 77px 0px white;
+}
+    #icons {
+    margin: 50px 80px;
+    height:100px;
+
+}
+
+
+/*about*/
+#about {
+    background-color: #6C4C90;
+    height: 100vh;
+    overflow: auto;
+    padding: 300px 300px;
+
+}
+#part1, #part2, #part3, #part4, #part5 {
+    background-color: white;
+    box-shadow: 0px 0px 9px 0px #F7B4F9;
+    overflow: auto;
+    padding: 50px;
+    margin: 50px;
+    border-radius: 20px;
+    overflow: auto;
+}
+#part1 img {
+    float: left;
+    margin-left: 100px;
+}
+#part1 h1 {
+    font-size: 35px;
+}
+
+/*designs*/
+#designs, #marjan {
+    position: relative;
+    height: 60vh;
+    background-color: white;
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+    #designs img,#marjan img {
+        padding: 5px;
+    }
+
+    #designs::-webkit-scrollbar, #marjan::-webkit-scrollbar {
+        display: unset;
+        width: 4px;
+    }
+
+    /* Track */
+    #designs::-webkit-scrollbar-track, #marjan::-webkit-scrollbar-track {
+        background: white;
+    }
+    /* Handle */
+    #designs::-webkit-scrollbar-thumb, #marjan::-webkit-scrollbar-thumb {
+        background: #F7B4F9;
+    }
+    /* Handle on hover */
+    #designs::-webkit-scrollbar-thumb:hover, #marjan::-webkit-scrollbar-thumb:hover {
+        background: #6C4C90;
+    }
+.title h1 {
+    text-align: center;
+    background-color: #F7B4F9;
+    padding:50px;
+    margin:0;
+
+}
+
+#marjan {
+    height: 50vh;
+}
+
