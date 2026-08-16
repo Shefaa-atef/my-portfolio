@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     revealObserver.observe(el);
   });
 
-  // 8. Interactive Animated Custom Cursor & Sparkles
+  // 8. Interactive Animated Custom Cursor
   const cursorDot = document.getElementById('cursorDot');
   const cursorRing = document.getElementById('cursorRing');
 
@@ -221,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let ringX = -100;
     let ringY = -100;
     let isVisible = false;
-    let lastSparkleTime = 0;
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
@@ -240,13 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       cursorDot.classList.remove('cursor-hidden');
       cursorRing.classList.remove('cursor-hidden');
-
-      // Sparkle trailing on motion
-      const now = performance.now();
-      if (now - lastSparkleTime > 40) {
-        createSparkle(mouseX, mouseY);
-        lastSparkleTime = now;
-      }
     });
 
     // Smooth RAF physics interpolation for trailing ring
@@ -263,10 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(renderCursor);
 
     // Mouse down / up active states
-    window.addEventListener('mousedown', (e) => {
+    window.addEventListener('mousedown', () => {
       cursorDot.classList.add('cursor-active');
       cursorRing.classList.add('cursor-active');
-      createSparkleBurst(e.clientX, e.clientY);
     });
 
     window.addEventListener('mouseup', () => {
@@ -301,37 +292,5 @@ document.addEventListener('DOMContentLoaded', () => {
         cursorRing.classList.remove('cursor-hover');
       }
     });
-
-    // Sparkle generator helpers
-    function createSparkle(x, y) {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'cursor-sparkle';
-      const size = Math.random() * 4 + 3;
-      const colors = ['#9b6dbd', '#6c4c90', '#c2a3dc', '#7ce7e6', '#e0cbf8'];
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      
-      const dx = (Math.random() - 0.5) * 35;
-      const dy = (Math.random() - 0.5) * 35;
-
-      sparkle.style.width = `${size}px`;
-      sparkle.style.height = `${size}px`;
-      sparkle.style.background = color;
-      sparkle.style.boxShadow = `0 0 6px ${color}`;
-      sparkle.style.left = `${x}px`;
-      sparkle.style.top = `${y}px`;
-      sparkle.style.setProperty('--dx', `${dx}px`);
-      sparkle.style.setProperty('--dy', `${dy}px`);
-
-      document.body.appendChild(sparkle);
-      setTimeout(() => {
-        if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
-      }, 750);
-    }
-
-    function createSparkleBurst(x, y) {
-      for (let i = 0; i < 7; i++) {
-        createSparkle(x, y);
-      }
-    }
   }
 });
