@@ -210,4 +210,128 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
     revealObserver.observe(el);
   });
+
+  // 8. Interactive Animated Custom Cursor & Sparkles
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+
+  if (cursorDot && cursorRing && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let mouseX = -100;
+    let mouseY = -100;
+    let ringX = -100;
+    let ringY = -100;
+    let isVisible = false;
+    let lastSparkleTime = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (!isVisible) {
+        isVisible = true;
+        ringX = mouseX;
+        ringY = mouseY;
+        cursorDot.classList.add('cursor-visible');
+        cursorRing.classList.add('cursor-visible');
+      }
+
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+
+      cursorDot.classList.remove('cursor-hidden');
+      cursorRing.classList.remove('cursor-hidden');
+
+      // Sparkle trailing on motion
+      const now = performance.now();
+      if (now - lastSparkleTime > 40) {
+        createSparkle(mouseX, mouseY);
+        lastSparkleTime = now;
+      }
+    });
+
+    // Smooth RAF physics interpolation for trailing ring
+    function renderCursor() {
+      if (isVisible) {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+
+        cursorRing.style.left = `${ringX}px`;
+        cursorRing.style.top = `${ringY}px`;
+      }
+      requestAnimationFrame(renderCursor);
+    }
+    requestAnimationFrame(renderCursor);
+
+    // Mouse down / up active states
+    window.addEventListener('mousedown', (e) => {
+      cursorDot.classList.add('cursor-active');
+      cursorRing.classList.add('cursor-active');
+      createSparkleBurst(e.clientX, e.clientY);
+    });
+
+    window.addEventListener('mouseup', () => {
+      cursorDot.classList.remove('cursor-active');
+      cursorRing.classList.remove('cursor-active');
+    });
+
+    // Window enter / leave
+    document.addEventListener('mouseleave', () => {
+      cursorDot.classList.add('cursor-hidden');
+      cursorRing.classList.add('cursor-hidden');
+    });
+
+    document.addEventListener('mouseenter', () => {
+      cursorDot.classList.remove('cursor-hidden');
+      cursorRing.classList.remove('cursor-hidden');
+    });
+
+    // Hover detection on interactive elements
+    const interactiveSelectors = 'a, button, .spotlight-card, .gallery-item, .switch-btn, .pill-btn, .platform-tag, .tag-figma, .tag-playstore, input, textarea, .category-block';
+    
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
+        cursorDot.classList.add('cursor-hover');
+        cursorRing.classList.add('cursor-hover');
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(interactiveSelectors)) {
+        cursorDot.classList.remove('cursor-hover');
+        cursorRing.classList.remove('cursor-hover');
+      }
+    });
+
+    // Sparkle generator helpers
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'cursor-sparkle';
+      const size = Math.random() * 4 + 3;
+      const colors = ['#9b6dbd', '#6c4c90', '#c2a3dc', '#7ce7e6', '#e0cbf8'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      
+      const dx = (Math.random() - 0.5) * 35;
+      const dy = (Math.random() - 0.5) * 35;
+
+      sparkle.style.width = `${size}px`;
+      sparkle.style.height = `${size}px`;
+      sparkle.style.background = color;
+      sparkle.style.boxShadow = `0 0 6px ${color}`;
+      sparkle.style.left = `${x}px`;
+      sparkle.style.top = `${y}px`;
+      sparkle.style.setProperty('--dx', `${dx}px`);
+      sparkle.style.setProperty('--dy', `${dy}px`);
+
+      document.body.appendChild(sparkle);
+      setTimeout(() => {
+        if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
+      }, 750);
+    }
+
+    function createSparkleBurst(x, y) {
+      for (let i = 0; i < 7; i++) {
+        createSparkle(x, y);
+      }
+    }
+  }
 });

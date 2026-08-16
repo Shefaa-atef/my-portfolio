@@ -1664,3 +1664,111 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Interactive Animated Custom Cursor & Sparkles
+   ========================================================================== */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 0 10px rgba(108, 76, 144, 0.6);
+  opacity: 0;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(108, 76, 144, 0.5);
+  background: rgba(108, 76, 144, 0.04);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              border-color 0.3s ease,
+              opacity 0.25s ease;
+  backdrop-filter: blur(1px);
+  opacity: 0;
+}
+
+/* Hovering over links / buttons / cards */
+.custom-cursor-ring.cursor-hover {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(108, 76, 144, 0.85);
+  background: rgba(108, 76, 144, 0.14);
+  box-shadow: 0 0 20px rgba(108, 76, 144, 0.25);
+}
+
+.custom-cursor-dot.cursor-hover {
+  transform: translate(-50%, -50%) scale(1.4);
+  background: var(--primary-dark);
+}
+
+/* Clicking / Holding */
+.custom-cursor-ring.cursor-active {
+  width: 28px;
+  height: 28px;
+  background: rgba(108, 76, 144, 0.3);
+  border-color: var(--primary);
+}
+
+.custom-cursor-dot.cursor-active {
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+/* Cursor hidden when leaving window */
+.custom-cursor-dot.cursor-hidden,
+.custom-cursor-ring.cursor-hidden {
+  opacity: 0 !important;
+}
+
+/* Visible state */
+.custom-cursor-dot.cursor-visible,
+.custom-cursor-ring.cursor-visible {
+  opacity: 1;
+}
+
+/* Dynamic Sparkle Particle */
+.cursor-sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99997;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: sparkle-fade 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes sparkle-fade {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))) scale(0.1);
+  }
+}
+
+/* Disable custom cursor on mobile / touchscreen devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-ring,
+  .cursor-sparkle {
+    display: none !important;
+  }
+}
