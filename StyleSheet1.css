@@ -1120,6 +1120,13 @@ section {
   color: var(--text-subtle);
 }
 
+.project-footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
 .project-action-link {
   font-size: 0.9rem;
   font-weight: 700;
